@@ -12,7 +12,6 @@ $ npm ci
 ## Usage
 
 ### To run the devnet dummy data initializer
-**(Not yet implemented!)**
 ```bash
 $ npm run init
 ```
