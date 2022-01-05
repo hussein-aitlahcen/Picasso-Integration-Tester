@@ -3,7 +3,7 @@
 /**
  * Inserts default values into the devnet for development.
  **/
-import {ApiPromise, Keyring, WsProvider} from '@polkadot/api';
+import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 
 // ToDo: Change endpoint to be read from env variables or run parameters.
@@ -25,9 +25,9 @@ class Generator {
    * Sends test transaction from Alice to Bob.
    * @param {ApiPromise} api Connected API Promise.
   **/
-  public static async testTransaction(api:ApiPromise) {
+  public static async testTransaction(api: ApiPromise) {
     const transfer = api.tx.assets.transferNative(walletBob.address, 12345678910, true);
-    const hash = await transfer.signAndSend(walletAlice, {nonce: -1});
+    const hash = await transfer.signAndSend(walletAlice, { nonce: -1 });
     console.debug('Transfer sent with hash', hash.toHex());
   }
 
@@ -38,7 +38,7 @@ class Generator {
  * Call default generation here.
  * @param {ApiPromise} api Connected API Promise.
 **/
-async function createDefaultData(api:ApiPromise) {
+async function createDefaultData(api: ApiPromise, sudoKey: KeyringPair) {
   await Generator.testTransaction(api);
   
   // ToDo: Add additional data generator calls here.
@@ -49,9 +49,9 @@ async function createDefaultData(api:ApiPromise) {
 **/
 async function main() {
   // Instantiate the API
-  const api = await ApiPromise.create({provider: provider});
+  const api = await ApiPromise.create({ provider: provider });
   // Constuct the keyring after the API (crypto has an async init)
-  const keyring = new Keyring({type: 'sr25519'});
+  const keyring = new Keyring({ type: 'sr25519' });
 
   /*  Get keys for dev accounts.
       ToDo: Read public/private keys from external file to be usable in live environment.
@@ -66,7 +66,7 @@ async function main() {
 
   console.info('Creating dummy data...');
 
-  await createDefaultData(api);
+  await createDefaultData(api, walletAlice);
 
   console.info('Finished creating dummy data.');
 }
