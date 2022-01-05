@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ES2020",
+    "moduleResolution": "node",
+    "pretty": false,
+    "noImplicitAny": false,
+    "removeComments": true,
+    "noImplicitReturns": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
+  },
+  "files": [
+    "src/test.ts",
+    "src/accountTests.ts",
+    "src/initializeState.ts"
+  ],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,39 @@
+{
+  "name": "picasso-integration-tester",
+  "version": "0.0.1",
+  "description": "Runs various integration tests for the composable picasso parachain.",
+  "main": "src/main.js",
+  "type": "commonjs",
+  "scripts": {
+    "compile": "tsc --declaration",
+    "lint": "tslint --project tsconfig.json",
+    "prepublish": "npm run compile",
+    "test": "mocha src/test.js"
+  },
+  "directories": {
+    "src": "./src",
+    "test": "./src"
+  },
+  "keywords": [],
+  "author": "Composable.Finance",
+  "license": "ISC",
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "ts-node": "^9.1.1",
+    "tslint": "^6.1.3",
+    "typescript": "^4.2.4"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "dependencies": {
+    "@polkadot/api": "^7.2.1",
+    "@polkadot/ts": "latest",
+    "@types/node": "^17.0.8",
+    "@types/mocha": "^9.0.0",
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "minimist": "^1.2.5",
+    "mocha": "latest"
+  }
+}
