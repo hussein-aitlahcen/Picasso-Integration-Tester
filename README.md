@@ -11,9 +11,17 @@ $ npm ci
 
 ## Usage
 
+### To run the devnet dummy data initializer
+**(Not yet implemented!)**
+```bash
+$ npm run init
+```
+
+### To run the tests:
 ```bash
 $ npm run test
 ```
+
 
 ## ToDo:
 * Add all general test cases.

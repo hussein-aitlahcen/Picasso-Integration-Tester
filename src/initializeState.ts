@@ -1,2 +1,2 @@
 // ToDo: Stub
-console.warn("initializeState: STUB");
+console.warn('initializeState: STUB');

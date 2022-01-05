@@ -1,5 +1,5 @@
-import { ApiPromise, WsProvider } from '@polkadot/api';
-import { AccountTests } from './accountTests';
+import {ApiPromise, WsProvider} from '@polkadot/api';
+import {AccountTests} from './accountTests';
 
 
 /*
@@ -19,35 +19,34 @@ Index:
  */
 
 // Initialise the provider to connect to the defined node
-let endpoint = 'ws://127.0.0.1:9988';
+const endpoint = 'ws://127.0.0.1:9988';
 const provider = new WsProvider(endpoint);
 let api;
 
 
 before(async () => {
-    api = await ApiPromise.create({ provider: provider });
+  api = await ApiPromise.create({provider: provider});
 });
 
 after(async () => {
-    api.disconnect();
+  api.disconnect();
 });
 
-describe("Account Tests", () => {
+describe('Account Tests', () => {
+  // Account balance check.
+  it('Balance check should result >0', async () => {
+    await AccountTests.checkBalance(api);
+  });
 
-    // Account balance check.
-    it("Balance check should result >0", async () => {
-        await AccountTests.checkBalance(api);
-    });
+  it('List asset amounts', async () => {
+    await AccountTests.listAssetAmounts(api);
+  });
 
-    it("List asset amounts", async() => {
-        await AccountTests.listAssetAmounts(api);
-    });
+  it('Vesting creation test', async () => {
+    // ToDo: Stub
+  });
 
-    it("Vesting creation test", async() => {
-        // ToDo: Stub
-    });
-
-    it("Vesting add tokens test", async() => {
-        // ToDo: Stub
-    });
+  it('Vesting add tokens test', async () => {
+    // ToDo: Stub
+  });
 });
