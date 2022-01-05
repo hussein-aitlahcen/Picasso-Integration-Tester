@@ -9,7 +9,7 @@
     "lint": "eslint src/* --fix-dry-run",
     "prepare": "npm run compile",
     "init": "node src/initializeState.js",
-    "test": "mocha src/test.js"
+    "test": "mocha src/test.js --reporter mochawesome"
   },
   "directories": {
     "src": "./src",
@@ -39,6 +39,7 @@
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
     "minimist": "^1.2.5",
-    "mocha": "latest"
+    "mocha": "latest",
+    "mochawesome": "^7.0.1"
   }
 }

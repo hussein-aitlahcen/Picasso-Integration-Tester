@@ -582,5 +582,6 @@ Temporary Items
 .apdisk
 
 # Custom additions
-src/*.js
-src/*.d.ts
+src/**/**.js
+src/**/**.d.ts
+mochawesome-report/*

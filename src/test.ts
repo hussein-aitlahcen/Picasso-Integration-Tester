@@ -2,31 +2,50 @@
 /**
  * Defines the tests to be run on the picasso parachain node.
  *
+ * Settings will later be configured using either a configuration
+ * file or using environment variables. Until then, please set
+ * the constant variables below.
+ *
  * Index:
- *    endpoint:string
- *    provider:WsProvider
- *    api:ApiPromise
+ *    before()                Gets called before the tests and connects the API object.
+ *    after()                 Gets called after all tests are finished and disconnects from the API.
  *
- *    before()              Gets called before the tests and connects the API object.
- *    after()               Gets called after all tests are finished and disconnects from the API.
- *
- *    describe()            Runs the tests using Mocha
- *        1. it()           checkBalance() => Get balance and checks if > 0.
- *        2. it()           listAssetAmounts() => Gets all assets on account and lists them.
- *        3. it()
- *        4. it()
+ *    describe()              Runs the tests using Mocha.
+ *    runAccountWalletTests()
  **/
 
-import {ApiPromise, WsProvider} from '@polkadot/api';
-import {AccountTests} from './accountTests';
+import {ApiPromise, Keyring, WsProvider} from '@polkadot/api';
+import {AccountTests} from './tests/accountTests';
 
 // ToDo: Change endpoint to be read from env variables or run parameters.
+const testSudoCommands = true;
+const useTestnetWallets = true;
 const endpoint = 'ws://127.0.0.1:9988';
 const provider = new WsProvider(endpoint);
 let api:ApiPromise;
+let keyring:Keyring;
+
+// ToDo: Read public/private keys from external file to be usable in live environment.
+//       and ability to specify keys using env variables or using run parameters.
+let walletAlice;
+let walletBob;
+let walletCharlie;
+let walletDave;
+let walletEve;
+let walletFerdie;
 
 before(async () => {
   api = await ApiPromise.create({provider: provider});
+  keyring = new Keyring({type: 'sr25519'});
+
+  if (useTestnetWallets === true) {
+    walletAlice = keyring.addFromUri('//Alice');
+    walletBob = keyring.addFromUri('//Bob');
+    walletCharlie = keyring.addFromUri('//Charlie');
+    walletDave = keyring.addFromUri('//Dave');
+    walletEve = keyring.addFromUri('//Eve');
+    walletFerdie = keyring.addFromUri('//Ferdie');
+  }
 });
 
 after(async () => {
@@ -34,22 +53,10 @@ after(async () => {
 });
 
 describe('Account Tests', () => {
-  // Standard wallet tests
-  it('Wallet balance check should result >0', async () => {
-    await AccountTests.checkBalance(api);
-  });
-
-  // Asset tests
-  it('Get single asset amount', async () => {
-    await AccountTests.getSingleAssetAmount(api);
-  });
-
-  it('Get list of asset amounts', async () => {
-    await AccountTests.getListAssetAmounts(api);
-  });
-
+  runAccountWalletTests();
   // ToDo
   // Governance Tests
+  runAccountGovernanceTests();
 
   // ToDo
   // Vault 101 Tests
@@ -70,3 +77,36 @@ describe('Account Tests', () => {
     // ToDo: Stub
   });
 });
+
+/**
+ * Standard wallet tests
+**/
+function runAccountWalletTests() {
+  it('Wallet balance check should result >0', async () => {
+    await AccountTests.checkBalance(api, walletAlice.address);
+  });
+
+  // Asset tests
+  it('Get single asset amount', async () => {
+    await AccountTests.getSingleAssetAmount(api, walletAlice.address);
+  });
+
+  it('Get list of asset amounts', async () => {
+    await AccountTests.getListAssetAmounts(api, walletAlice.address);
+  });
+}
+
+/**
+ * Tests governance functionalities
+**/
+async function runAccountGovernanceTests() {
+  if (testSudoCommands === true) {
+    it('Council.setMembers(newMembers, prime, oldCount) test', async () => {
+      await AccountTests.governanceSudoCouncilSetMembersTest(api, walletAlice);
+    });
+  }
+
+  it('Submit proposal test', async () => {
+    await AccountTests.governanceCouncilSubmitProposalTest(api, walletAlice);
+  });
+}

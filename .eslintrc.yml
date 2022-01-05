@@ -2,7 +2,6 @@ env:
   browser: false
   es2021: true
 extends:
-  - google
   - "plugin:@typescript-eslint/recommended"
 parser: '@typescript-eslint/parser'
 parserOptions:
@@ -12,4 +11,4 @@ parserOptions:
 plugins:
   - '@typescript-eslint'
 rules: {}
-ignorePatterns: ["src/*.d.ts", "src/*.js", "src/frontend/generated/*"]
+ignorePatterns: ["src/**/**.d.ts", "src/**/**.js", "src/frontend/generated/*"]

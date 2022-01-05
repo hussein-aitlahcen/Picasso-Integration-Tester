@@ -1,0 +1,26 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "command": "npm ci && npm run test",
+            "name": "Run tests",
+            "request": "launch",
+            "type": "node-terminal"
+        }, 
+        {
+            "command": "npm ci && npm run init",
+            "name": "Run devnet init",
+            "request": "launch",
+            "type": "node-terminal"
+        }, 
+        {
+            "command": "npm ci && npm run lint",
+            "name": "Run lint check",
+            "request": "launch",
+            "type": "node-terminal"
+        }
+    ]
+}
