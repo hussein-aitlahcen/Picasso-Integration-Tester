@@ -4,17 +4,18 @@
  * Inserts default values into the devnet for development.
  **/
 import {ApiPromise, Keyring, WsProvider} from '@polkadot/api';
+import { KeyringPair } from '@polkadot/keyring/types';
 
 // ToDo: Change endpoint to be read from env variables or run parameters.
 const endpoint = 'ws://127.0.0.1:9988';
 const provider = new WsProvider(endpoint);
 
-let walletAlice;
-let walletBob;
-let walletCharlie;
-let walletDave;
-let walletEve;
-let walletFerdie;
+let walletAlice: KeyringPair;
+let walletBob: KeyringPair;
+let walletCharlie: KeyringPair;
+let walletDave: KeyringPair;
+let walletEve: KeyringPair;
+let walletFerdie: KeyringPair;
 
 /**
  * Contains all generation methods as static async functions
