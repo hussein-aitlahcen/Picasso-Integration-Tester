@@ -16,11 +16,12 @@
 
 import {ApiPromise, Keyring, WsProvider} from '@polkadot/api';
 import {AccountTests} from './tests/accountTests';
+require('dotenv').config();
 
 // ToDo: Change endpoint to be read from env variables or run parameters.
-const testSudoCommands = true;
-const useTestnetWallets = true;
-const endpoint = 'ws://127.0.0.1:9988';
+const testSudoCommands = process.env.TEST_SUDO_CMD === 'true';
+const useTestnetWallets = process.env.USE_TESTNET_WALLETS === 'true';
+const endpoint = process.env.PICASSO_RPC;
 const provider = new WsProvider(endpoint);
 let api:ApiPromise;
 let keyring:Keyring;
