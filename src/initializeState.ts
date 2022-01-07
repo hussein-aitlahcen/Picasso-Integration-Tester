@@ -6,9 +6,10 @@
 import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import * as R from 'ramda';
+require('dotenv').config();
 
 // ToDo: Change endpoint to be read from env variables or run parameters.
-const endpoint = 'ws://127.0.0.1:9988';
+const endpoint = process.env.PICASSO_RPC;
 const provider = new WsProvider(endpoint);
 
 let walletAlice: KeyringPair;
